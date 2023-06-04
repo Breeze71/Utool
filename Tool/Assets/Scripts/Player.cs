@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]private float moveSpeed = 5f;
+    [SerializeField] private InventoryManagerSO inventoryManagerSO;
+    [SerializeField] private float moveSpeed = 5f;
     private Vector3 moveDirection;
 
 
@@ -28,13 +29,17 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider) 
     {
-        Debug.Log("enter");
         ItemController item = collider.GetComponent<ItemController>();
         if(collider != null)
         {
-            // Pickup
-            item.Pickup();
+            inventoryManagerSO.AddItem(item.GetItemSO(), 1);
+            Destroy(collider.gameObject);
         }
+    }
+
+    private void OnApplicationQuit() 
+    {
+        inventoryManagerSO.ClearAll();
     }
 
 }

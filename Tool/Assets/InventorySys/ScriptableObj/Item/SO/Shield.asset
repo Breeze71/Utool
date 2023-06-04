@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 116b83781bc9caf439ed0da9e89a22fa, type: 3}
-  m_Name: Tomato
+  m_Script: {fileID: 11500000, guid: 9d73629e32c1ba94c97037151e951218, type: 3}
+  m_Name: Shield
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 3fba4ce49d988474dac78533dc0288c2, type: 3}
-  objName: Tomato
-  itemType: 3
+  itemName: 
+  sprite: {fileID: 0}
+  prefab: {fileID: 0}
+  itemType: 1
+  description: 
+  attackBonus: 0
+  defenceBouns: 10

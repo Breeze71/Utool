@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
+    [SerializeField] private InventoryManagerSO playerInventorySO;
+
     [SerializeField] private Transform ItemContainer;
     [SerializeField] private Transform ItemTemplate;
 
@@ -17,20 +19,20 @@ public class InventoryUI : MonoBehaviour
     #region Trigger Event Update Icon
     private void Start() 
     {
-        InventoryManager.Instance.OnItemAdd += InventoryManager_OnItemAdd;
-        InventoryManager.Instance.OnItemRemove += InventoryManager_OnItemRemove;
+        playerInventorySO.OnItemAdd += playerInventorySO_OnItemAdd;
+        playerInventorySO.OnItemRemove += playerInventorySO_OnItemRemove;
 
         UpdateIcon();  
     }
+    private void playerInventorySO_OnItemRemove(object sender, EventArgs e)
+    {
+        UpdateIcon();
+    }
+    private void playerInventorySO_OnItemAdd(object sender, EventArgs e)
+    {
+        UpdateIcon();
+    }
 
-    private void InventoryManager_OnItemAdd(object sender, EventArgs e)
-    {
-        UpdateIcon();
-    }
-    private void InventoryManager_OnItemRemove(object sender, EventArgs e)
-    {
-        UpdateIcon();
-    }
     #endregion
 
     private void UpdateIcon()
@@ -45,15 +47,12 @@ public class InventoryUI : MonoBehaviour
         }
 
         // 取得當前 List 中物件，再將 icon 換成 scriptable 紀錄的
-        foreach(ItemSO itemSO in InventoryManager.Instance.GetItemSOList())
+        foreach(InventorySlot inventorySlot in playerInventorySO.GetSlotList())
         {
             Transform itemTransform = Instantiate(ItemTemplate, ItemContainer);
             itemTransform.gameObject.SetActive(true);
 
-            itemTransform.GetComponent<InventoryUISingle>().SetItemSO_Property(itemSO);
+            itemTransform.GetComponent<InventoryUISingle>().SetItemSO_Property(inventorySlot);
         }
     }
-
-
-    
 }
